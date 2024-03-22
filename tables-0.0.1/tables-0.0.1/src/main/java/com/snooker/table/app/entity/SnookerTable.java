@@ -6,57 +6,62 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-
 public class SnookerTable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String size;
-    private boolean available;
+    private TableStatus status;
 
-    // Default constructor (required by JPA)
     public SnookerTable() {
     }
-
-    // Constructor with parameters to initialize all fields
-    public SnookerTable(String size, boolean available) {
-        this.size = size;
-        this.available = available;
-    }
-
-    // Getters and setters
+    
     public Long getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getSize() {
-        return size;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setSize(String size) {
-        this.size = size;
-    }
 
-    public boolean isAvailable() {
-        return available;
-    }
+	public String getSize() {
+		return size;
+	}
 
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
 
-    // You can also override toString() for logging purposes or debugging
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+
+	public TableStatus getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(TableStatus status) {
+		this.status = status;
+	}
+
+
+	public SnookerTable(Long id, String size, TableStatus status) {
+		super();
+		this.id = id;
+		this.size = size;
+		this.status = status;
+	}
+
+
+	// You can also override toString() for logging purposes or debugging
     @Override
     public String toString() {
         return "SnookerTable{" +
                 "id=" + id +
                 ", size='" + size + '\'' +
-                ", available=" + available +
+                ", status" + status +
                 '}';
     }
 }
