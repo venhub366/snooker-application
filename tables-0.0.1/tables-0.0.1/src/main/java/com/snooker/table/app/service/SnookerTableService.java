@@ -11,4 +11,6 @@ public interface SnookerTableService {
 	SnookerTable updateSnookerTableStatus(Long tableId, TableStatus status);
 	SnookerTable addNewTable(SnookerTable table);
 	TableStatus getSnookerTableStatus(Long id);
+	SnookerTable getTableById(Long id);
+	double calculateCost(Long id, int hours);
 }

@@ -1,12 +1,14 @@
 package com.snooker.table.app.service;
 
-import com.snooker.table.app.entity.SnookerTable;
-import com.snooker.table.app.entity.TableStatus;
-import com.snooker.table.app.repository.SnookerTableRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.snooker.table.app.entity.SnookerTable;
+import com.snooker.table.app.entity.TableStatus;
+import com.snooker.table.app.repository.SnookerTableRepository;
 
 @Service
 public class SnookerTableServiceImpl implements SnookerTableService {
@@ -42,6 +44,24 @@ public class SnookerTableServiceImpl implements SnookerTableService {
     @Override
     public void deleteTable(Long id) {
         snookerTableRepository.deleteById(id);
+    }
+
+    @Override
+    public SnookerTable getTableById(Long id) {
+        Optional<SnookerTable> optionalTable = snookerTableRepository.findById(id);
+        return optionalTable.orElse(null); // Return null if table with given ID is not found
+    }
+	
+    @Override
+    public double calculateCost(Long id, int hours) {
+        SnookerTable table = snookerTableRepository.findById(id).orElse(null);
+        if (table != null) {
+            double basePrice = table.getBasePrice();
+            double hourlyCharge = table.getHourlyCharge();
+            return basePrice + (hourlyCharge * hours);
+        } else {
+            return -1; // Indicate table not found
+        }
     }
 
 
